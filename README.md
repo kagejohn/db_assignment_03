@@ -107,7 +107,8 @@
   ```
 
 3. Who are the 
-	  * five most grumpy (most negative tweets) and
+
+	  3.1. five most grumpy (most negative tweets) and
   
   ```
   Query:
@@ -173,7 +174,7 @@
 	}
   ```
   
-	  * the most happy (most positive tweets)?
+3.2. the most happy (most positive tweets)?
 
   ```
   Query:
