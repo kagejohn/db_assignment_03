@@ -7,14 +7,14 @@
   Query:
 	db.tweets.aggregate([
 	{
-		$group:
-		{
-			_id: "$user"
-		}
-		},
-		{
-			$count: "count"
-		}
+        $group:
+        {
+            _id: "$user"
+        }
+    },
+    {
+        $count: "count"
+    }
 	])
   ```
 
@@ -31,21 +31,21 @@
   Query:
 	db.tweets.aggregate([
 	{
-	    $group:
-		{
-		    _id: "$user",
-		    count: { $sum:1 }
-		}
-		},
-		{
-				$sort:
-			{
-					count: -1
-			}
-		},
-		{
-				$limit: 10
-		}
+        $group:
+        {
+            _id: "$user",
+            count: { $sum:1 }
+        }
+    },
+    {
+        $sort:
+        {
+            count: -1
+        }
+    },
+    {
+        $limit: 10
+    }
 	])
   ```
 
