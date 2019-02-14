@@ -7,14 +7,9 @@
   Query:
 	db.tweets.aggregate([
 	{
-        $group:
-        {
-            _id: "$user"
-        }
+        $group: { _id: "$user" }
     },
-    {
-        $count: "count"
-    }
+    { $count: "count" }
 	])
   ```
 
@@ -38,14 +33,9 @@
         }
     },
     {
-        $sort:
-        {
-            count: -1
-        }
+        $sort: { count: -1 }
     },
-    {
-        $limit: 10
-    }
+    { $limit: 10 }
 	])
   ```
 
@@ -113,8 +103,126 @@
   ```
 
 3. Who are the 
-	  * five most grumpy (most negative tweets) and 
-	  * the most happy (most positive tweets)? 
+	  * five most grumpy (most negative tweets) and
+  
+  ```
+  Query:
+	db.tweets.aggregate([
+	{ 
+	    $match: { polarity: 0 } 
+	},
+	{
+	    $group:
+	      {
+		  _id: "$user",
+		  user: {$first: "$user"},
+		  count: { $sum:1 }
+	      }
+	},
+	{
+	  $sort: { count: -1 }
+	},
+	{
+	    $limit: 5
+	},
+	{ 
+	    $project: { _id:0, user:1, count:1 } 
+	}
+	])
+  ```
+  
+  ```
+  Response:
+	/* 1 */
+	{
+	    "user" : "lost_dog",
+	    "count" : 549.0
+	}
+
+	/* 2 */
+	{
+	    "user" : "tweetpet",
+	    "count" : 310.0
+	}
+
+	/* 3 */
+	{
+	    "user" : "webwoke",
+	    "count" : 264.0
+	}
+
+	/* 4 */
+	{
+	    "user" : "mcraddictal",
+	    "count" : 210.0
+	}
+
+	/* 5 */
+	{
+	    "user" : "wowlew",
+	    "count" : 210.0
+	}
+  ```
+  
+	  * the most happy (most positive tweets)?
+  ```
+  Query:
+	db.tweets.aggregate([
+	{ 
+	    $match: { polarity: 4 } 
+	},
+	{
+	    $group:
+	      {
+		  _id: "$user",
+		  user: {$first: "$user"},
+		  count: { $sum:1 }
+	      }
+	},
+	{
+	  $sort: { count: -1 }
+	},
+	{
+	    $limit: 5
+	},
+	{ 
+	    $project: { _id:0, user:1, count:1 } 
+	}
+	])
+  ```
+  
+  ```
+  Response:
+	/* 1 */
+	{
+	    "user" : "what_bugs_u",
+	    "count" : 246.0
+	}
+
+	/* 2 */
+	{
+	    "user" : "DarkPiano",
+	    "count" : 231.0
+	}
+
+	/* 3 */
+	{
+	    "user" : "VioletsCRUK",
+	    "count" : 218.0
+	}
+
+	/* 4 */
+	{
+	    "user" : "tsarnick",
+	    "count" : 212.0
+	}
+
+	/* 5 */
+	{
+	    "user" : "keza34",
+	    "count" : 211.0
+	}
+  ```
 4. Which Twitter users link the most to other Twitter users? (Provide the top ten.)
 5. Who is are the most mentioned Twitter users? (Provide the top five.)
 
