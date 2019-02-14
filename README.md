@@ -336,6 +336,97 @@
   ```
   
 5. Who is are the most mentioned Twitter users? (Provide the top five.)
+ 
+  ```
+  Query:
+    db.tweets.aggregate([
+    {
+        $match: { text: /@\w+/}
+    }, 
+    {
+        $project:
+        {
+            user:1,
+            text: { $split: ["$text", " "] }
+        }
+    },
+    {
+        $unwind: "$text"
+    },
+    {
+        $match: { text: /@\w+/}
+    }, 
+    {
+        $project:
+        {
+            user:1,
+            text: { $split: ["$text", "@"] }
+        }
+    }, 
+    {
+        $project:
+        {
+            user:1,
+            text: { $arrayElemAt: [ "$text", 1 ] }
+        }
+    },
+    {
+        $group:
+        {
+            _id: "$text",
+            user: {$first: "$text"},
+            count: { $sum:1 }
+        }
+    },
+    {
+        $sort: { count: -1 }
+    },
+    {
+        $limit: 5
+    },
+    { 
+        $project: 
+        { 
+            _id:0,
+            user:1,
+            count:1
+        } 
+    }
+    ])
+  ```
+
+  ```
+  Response:
+    /* 1 */
+    {
+        "user" : "mileycyrus",
+        "count" : 4325.0
+    }
+    
+    /* 2 */
+    {
+        "user" : "tommcfly",
+        "count" : 3841.0
+    }
+    
+    /* 3 */
+    {
+        "user" : "ddlovato",
+        "count" : 3356.0
+    }
+    
+    /* 4 */
+    {
+        "user" : "Jonasbrothers",
+        "count" : 1267.0
+    }
+    
+    /* 5 */
+    {
+        "user" : "DavidArchie",
+        "count" : 1227.0
+    }
+  ```
 
 ## 2. Modeling
 TODO
