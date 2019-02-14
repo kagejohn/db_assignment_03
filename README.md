@@ -240,6 +240,101 @@
 	}
   ```
 4. Which Twitter users link the most to other Twitter users? (Provide the top ten.)
+
+  ```
+  Query:
+    db.tweets.aggregate([
+    {
+        $match:{text:/@\w+/}
+    },
+    {
+        $group:
+        {
+            _id: "$user",
+            user: {$first: "$user"},
+            count: { $sum:1 }
+        }
+    },
+    {
+        $sort: { count: -1 }
+    },
+    {
+        $limit: 10
+    },
+    { 
+        $project: 
+        { 
+            _id:0,
+            user:1,
+            count:1
+        } 
+    }
+    ])
+  ```
+  
+  ```
+  Response:
+    /* 1 */
+    {
+        "user" : "lost_dog",
+        "count" : 549.0
+    }
+    
+    /* 2 */
+    {
+        "user" : "tweetpet",
+        "count" : 310.0
+    }
+    
+    /* 3 */
+    {
+        "user" : "VioletsCRUK",
+        "count" : 251.0
+    }
+    
+    /* 4 */
+    {
+        "user" : "what_bugs_u",
+        "count" : 246.0
+    }
+    
+    /* 5 */
+    {
+        "user" : "tsarnick",
+        "count" : 245.0
+    }
+    
+    /* 6 */
+    {
+        "user" : "SallytheShizzle",
+        "count" : 229.0
+    }
+    
+    /* 7 */
+    {
+        "user" : "mcraddictal",
+        "count" : 217.0
+    }
+    
+    /* 8 */
+    {
+        "user" : "Karen230683",
+        "count" : 216.0
+    }
+    
+    /* 9 */
+    {
+        "user" : "keza34",
+        "count" : 211.0
+    }
+    
+    /* 10 */
+    {
+        "user" : "TraceyHewins",
+        "count" : 202.0
+    }
+  ```
+  
 5. Who is are the most mentioned Twitter users? (Provide the top five.)
 
 ## 2. Modeling
