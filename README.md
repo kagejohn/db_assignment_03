@@ -9,7 +9,9 @@
 	{
         $group: { _id: "$user" }
     },
-    { $count: "count" }
+    { 
+        $count: "count"
+    }
 	])
   ```
 
@@ -35,7 +37,9 @@
     {
         $sort: { count: -1 }
     },
-    { $limit: 10 }
+    { 
+        $limit: 10
+    }
 	])
   ```
 
@@ -113,21 +117,26 @@
 	},
 	{
 	    $group:
-	      {
-		  _id: "$user",
-		  user: {$first: "$user"},
-		  count: { $sum:1 }
-	      }
+        {
+            _id: "$user",
+            user: {$first: "$user"},
+            count: { $sum:1 }
+        }
 	},
 	{
-	  $sort: { count: -1 }
-	},
-	{
-	    $limit: 5
+	    $sort: { count: -1 }
 	},
 	{ 
-	    $project: { _id:0, user:1, count:1 } 
-	}
+	    $project: 
+	    {
+	        _id:0,
+	        user:1,
+	        count:1 
+	    } 
+	},
+	{ 
+	    $limit: 5
+    }
 	])
   ```
   
@@ -165,6 +174,7 @@
   ```
   
 	  * the most happy (most positive tweets)?
+
   ```
   Query:
 	db.tweets.aggregate([
@@ -173,20 +183,25 @@
 	},
 	{
 	    $group:
-	      {
-		  _id: "$user",
-		  user: {$first: "$user"},
-		  count: { $sum:1 }
-	      }
+        {
+            _id: "$user",
+            user: {$first: "$user"},
+            count: { $sum:1 }
+        }
 	},
 	{
-	  $sort: { count: -1 }
+	    $sort: { count: -1 }
 	},
 	{
 	    $limit: 5
 	},
 	{ 
-	    $project: { _id:0, user:1, count:1 } 
+	    $project: 
+	    { 
+	        _id:0,
+	        user:1,
+	        count:1
+        } 
 	}
 	])
   ```
