@@ -1,8 +1,12 @@
 # Assignment 3
 
 ## 1. Twitter data
-1. How many Twitter users are in the database?
+### How it works
+Click on the questions to have them fold out.
 
+<details>
+ <summary>1. How many Twitter users are in the database?</summary>
+ 
   ```
   Query:
 	db.tweets.aggregate([
@@ -21,8 +25,11 @@
         "count" : 659774
 	}
   ```
+  
+</details>
 
-2. Who are the most active Twitter users (top ten)?
+<details>
+ <summary>2. Who are the most active Twitter users (top ten)?</summary>
 
   ```
   Query:
@@ -106,9 +113,12 @@
 	}
   ```
 
+</details>
+
 3. Who are the 
 
-	  3.1. five most grumpy (most negative tweets) and
+<details>
+ <summary>3.1. five most grumpy (most negative tweets) and</summary>
   
   ```
   Query:
@@ -173,8 +183,11 @@
 	    "count" : 210.0
 	}
   ```
-  
-3.2. the most happy (most positive tweets)?
+
+</details>
+	  
+<details>
+ <summary>3.2. the most happy (most positive tweets)?</summary>
 
   ```
   Query:
@@ -239,7 +252,11 @@
 	    "count" : 211.0
 	}
   ```
-4. Which Twitter users link the most to other Twitter users? (Provide the top ten.)
+
+</details>
+
+<details>
+ <summary>4. Which Twitter users link the most to other Twitter users? (Provide the top ten.)</summary>
 
   ```
   Query:
@@ -335,7 +352,10 @@
     }
   ```
   
-5. Who is are the most mentioned Twitter users? (Provide the top five.)
+</details>
+
+<details>
+ <summary>5. Who is are the most mentioned Twitter users? (Provide the top five.)</summary>
  
   ```
   Query:
@@ -427,6 +447,9 @@
         "count" : 1227.0
     }
   ```
+
+</details>
+
 
 ## 2. Modeling
 TODO
