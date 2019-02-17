@@ -1,9 +1,9 @@
 # Assignment 3
 
+## 1. Twitter data
+
 ### How it works
 Click on the questions to have them fold out.
-
-## 1. Twitter data
 
 <details>
  <summary>1. How many Twitter users are in the database?</summary>
