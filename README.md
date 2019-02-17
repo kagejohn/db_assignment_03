@@ -1,8 +1,9 @@
 # Assignment 3
 
-## 1. Twitter data
 ### How it works
 Click on the questions to have them fold out.
+
+## 1. Twitter data
 
 <details>
  <summary>1. How many Twitter users are in the database?</summary>
@@ -452,4 +453,63 @@ Click on the questions to have them fold out.
 
 
 ## 2. Modeling
-TODO
+
+Model | Atomicity | Sharding |Indexes |Large Number of Collections | Collection Contains Large Number of Small Documents
+----|:----:|:----:|:----:|:----:|:----:
+Arrays of Ancestors	|x|x|x|x||
+Materialized paths  |x|x|x|x|x|
+Nested sets			|x|x|x|||
+
+### Arrays of Ancestors
+
+#### Atomicity
+
+Will work well for Arrays of Ancestors because documents doesn't contain any information that would have to be changed if something was changed in another document unless changes will be made to _id and that shouldn't really happen.
+
+#### Sharding
+
+Should work as planned so that load can be distributed.
+
+#### Indexes
+
+Will most likley not changed much because each document have all information about its parents, when writing you just need to look at the parent and then you have all the information needed.
+
+#### Large Number of Collections
+
+Could possibly be a good idea were all children of one document would be put in a collection with the parents name but i am acceptably sure it would cause more problems than it would solve.
+
+### Materialized paths
+
+#### Atomicity
+
+Will work well for Materialized paths because documents doesn't contain any information that would have to be changed if something was changed in another document unless changes will be made to _id and that shouldn't really happen.
+
+#### Sharding
+
+Should work as planned so that load can be distributed.
+
+#### Indexes
+
+Will most likley not changed much because each document have all information about its path, when writing you just need to look at the parent and then you have all the information needed.
+
+#### Large Number of Collections
+
+Could possibly be a good idea were all children of one document would be put in a collection with the parents name but i am acceptably sure it would cause more problems than it would solve.
+
+#### Collection Contains Large Number of Small Documents
+
+Could possibly be a good idea but the top documents would quickly get huge.
+
+### Nested sets
+
+#### Atomicity
+
+Will not really work well because if you want to add one document you need to update every single other document in the collection.
+
+#### Sharding
+
+Most likley won't work well because you need to keep a record in every document of its order so adding one document would put load on all shards.
+
+#### Indexes
+
+Will most likely help on read performance because a document only have information about its parent and order.
